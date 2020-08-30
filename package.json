@@ -4,7 +4,8 @@
   "description": "A small polling app for coding blocks",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "server": "nodemon app.js"
   },
   "author": "Sam Hawkz",
   "license": "MIT",
@@ -13,5 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.10.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
