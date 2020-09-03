@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
 
     created: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
 
     polls: [{
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', async function(next) {
 
     try {
         if(this.isModified('password')){
