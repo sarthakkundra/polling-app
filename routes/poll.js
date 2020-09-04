@@ -41,4 +41,49 @@ router.post("/createPoll", auth, async (req, res) => {
   }
 });
 
+router.get("/userPolls", auth, async (req, res) => {
+  try {
+    const { id } = req.decoded;
+
+    const user = await User.findById(id).populate("polls");
+
+    res.status(200).json(user.polls);
+  } catch (e) {
+    res.status(400).json({ message: "Sorry bad req" + e });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const polls = await Poll.findById(id).populate("user", ["username", "id"]);
+
+    res.status(200).json(polls);
+  } catch (e) {
+    res.status(400).json({ message: "Sorry bad request" + e });
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userId } = req.decoded;
+
+    const poll = await Poll.findById(id);
+    if (!poll) {
+      throw new Error("No poll found");
+    }
+    if (poll.user.toString() !== userId) {
+      throw new Error("Unauthorized, request denied!");
+    }
+
+    await poll.remove();
+
+    res.status(202).json(poll);
+  } catch (e) {
+    res.status(400).json({ message: "Sorry bad request" + e });
+  }
+});
+
 module.exports = router;
