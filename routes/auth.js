@@ -11,7 +11,7 @@ router.post("/register", async (req, res) => {
   try {
     const user = await User.create(req.body);
     const { id, name } = user;
-    const token = await jwt.sign({ id, name }, secret);
+    const token = jwt.sign({ id, name }, secret);
     res.send({ user, token });
   } catch (e) {
     res.send(e);
@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
     const validUser = await user.comparePassword(req.body.password);
     const { id, name } = user;
     if (validUser) {
-      const token = await jwt.sign({ name, id }, secret);
+      const token = jwt.sign({ name, id }, secret);
       res.send({ user, token });
     } else {
       throw new Error("Invalid credentials");

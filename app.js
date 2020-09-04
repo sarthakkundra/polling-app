@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
     res.send('Hello polling app');
 })
 
-app.use('/api/users', require('./routes/auth'))
-
+app.use('/api/users', require('./routes/auth'));
+app.use('/api/poll', require('./routes/poll'));
 app.listen(port, () => {
     console.log(`Server is up on port ${port}`);
 })
