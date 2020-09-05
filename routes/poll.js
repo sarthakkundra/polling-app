@@ -86,4 +86,46 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
+router.post("/:id",auth, async (req, res) => {
+  try {
+    const { id: pollId } = req.params;
+    const { id: userId } = req.decoded;
+    const { answer } = req.body;
+
+    if (answer) {
+      const poll = await Poll.findById(pollId);
+      
+      if (!poll) throw new Error("No poll found");
+
+        const vote = poll.options.map((option) => {
+          if (option.option === answer) {
+            return {
+              option: option.option,
+              _id: option.id,
+              votes: option.votes + 1,
+            };
+          } else {
+            return option;
+          }
+        });
+      
+
+      if (poll.voted.filter((user) => user.toString() === userId).length == 0) {
+        poll.voted.push(userId);
+        poll.options = vote;
+
+        await poll.save();
+      } else {
+        throw new Error("Sorry already voted");
+      }
+    } else {
+      throw new Error("No answer provided");
+    }
+
+    res.status(202).json(poll);
+  } catch (e) {
+    res.status(400).json({ message: `Sorry bad request ${e}` });
+  }
+});
+
 module.exports = router;
