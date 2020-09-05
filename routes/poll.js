@@ -94,7 +94,6 @@ router.post("/:id",auth, async (req, res) => {
 
     if (answer) {
       const poll = await Poll.findById(pollId);
-      
       if (!poll) throw new Error("No poll found");
 
         const vote = poll.options.map((option) => {
@@ -108,21 +107,19 @@ router.post("/:id",auth, async (req, res) => {
             return option;
           }
         });
-      
 
       if (poll.voted.filter((user) => user.toString() === userId).length == 0) {
         poll.voted.push(userId);
         poll.options = vote;
 
         await poll.save();
+        res.status(202).json(poll);
       } else {
         throw new Error("Sorry already voted");
       }
     } else {
       throw new Error("No answer provided");
     }
-
-    res.status(202).json(poll);
   } catch (e) {
     res.status(400).json({ message: `Sorry bad request ${e}` });
   }
