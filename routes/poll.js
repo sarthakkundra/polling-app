@@ -7,6 +7,7 @@ const auth = require("../middleware/auth");
 
 const router = new express.Router();
 
+//  Route to show all the polls
 router.get("/showPolls", async (req, res) => {
   try {
     const polls = await Poll.find();
@@ -17,6 +18,7 @@ router.get("/showPolls", async (req, res) => {
   }
 });
 
+//  Route to create a poll
 router.post("/createPoll", auth, async (req, res) => {
   try {
     const { id } = req.decoded;
@@ -25,6 +27,7 @@ router.post("/createPoll", auth, async (req, res) => {
 
     const { question, options } = req.body;
 
+    // Create a poll object with the questions and options
     const poll = await Poll.create({
       question,
       user,
@@ -41,6 +44,7 @@ router.post("/createPoll", auth, async (req, res) => {
   }
 });
 
+//  Route to get all the polls of a user
 router.get("/userPolls", auth, async (req, res) => {
   try {
     const { id } = req.decoded;
@@ -53,6 +57,7 @@ router.get("/userPolls", auth, async (req, res) => {
   }
 });
 
+//  Route to find a poll
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -65,6 +70,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//  Route to delete a poll
 router.delete("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -74,6 +80,7 @@ router.delete("/:id", auth, async (req, res) => {
     if (!poll) {
       throw new Error("No poll found");
     }
+    //  Check if the owner of the poll is the person deleting the poll
     if (poll.user.toString() !== userId) {
       throw new Error("Unauthorized, request denied!");
     }
@@ -86,7 +93,8 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-router.post("/:id",auth, async (req, res) => {
+//  Route to cast a vote
+router.post("/:id", auth, async (req, res) => {
   try {
     const { id: pollId } = req.params;
     const { id: userId } = req.decoded;
@@ -96,18 +104,20 @@ router.post("/:id",auth, async (req, res) => {
       const poll = await Poll.findById(pollId);
       if (!poll) throw new Error("No poll found");
 
-        const vote = poll.options.map((option) => {
-          if (option.option === answer) {
-            return {
-              option: option.option,
-              _id: option.id,
-              votes: option.votes + 1,
-            };
-          } else {
-            return option;
-          }
-        });
+      //  If anser is one of the options of the poll then add 1 to it's votes
+      const vote = poll.options.map((option) => {
+        if (option.option === answer) {
+          return {
+            option: option.option,
+            _id: option.id,
+            votes: option.votes + 1,
+          };
+        } else {
+          return option;
+        }
+      });
 
+      //  Check if the user has already voted on that question or not
       if (poll.voted.filter((user) => user.toString() === userId).length == 0) {
         poll.voted.push(userId);
         poll.options = vote;
