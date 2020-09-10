@@ -23,15 +23,17 @@ export const logout = () => {
 export const authUser = (path, data) => {
   return async dispatch => {
     try {
-      const { token, ...user } = await api.call('post', `users/${path}`, data);
+      const { token, user, message } = await api.call('post', `users/${path}`, data);
+      if(message){
+        throw new Error(message);
+      }
       localStorage.setItem('jwtToken', token);
       api.setToken(token);
       dispatch(setCurrentUser(user));
       dispatch(removeError());
     } catch (err) {
-      // const { error } = err;
-      console.log(err)
-      dispatch(addError(err));
+
+      dispatch(addError(err.message));
     }
   };
 };

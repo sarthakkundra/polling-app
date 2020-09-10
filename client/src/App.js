@@ -7,6 +7,7 @@ import { setCurrentUser, addError } from './store/actions';
 import { setToken } from './services/api';
 
 import Auth from './components/Auth';
+import Error from './components/Error';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ if(localStorage.jwtToken){
   <Provider store={store}>
     <div>
       <Auth authType={'login'} />
+      <Error />
     </div>
     </Provider>
   
