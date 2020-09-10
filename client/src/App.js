@@ -4,9 +4,12 @@ import decode from 'jwt-decode';
 
 import {store} from './store';
 import { setCurrentUser, addError } from './store/actions';
+import { setToken } from './services/api';
+
+import Auth from './components/Auth';
 
 import './App.css';
-import { setToken } from './services/api';
+
 
 if(localStorage.jwtToken){
   setToken(localStorage.jwtToken);
@@ -23,7 +26,7 @@ if(localStorage.jwtToken){
 
   <Provider store={store}>
     <div>
-    Hello Polling App!    
+      <Auth authType={'login'} />
     </div>
     </Provider>
   
