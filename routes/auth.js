@@ -10,9 +10,9 @@ const secret = "CBPollingApp";
 router.post("/register", async (req, res) => {
   try {
     const user = await User.create(req.body);
-    const { id, name } = user;
-    const token = jwt.sign({ id, name }, secret);
-    res.send({ user, token });
+    const { id, username } = user;
+    const token = jwt.sign({ id, username }, secret);
+    res.send({ id, user, token });
   } catch (e) {
     res.send(e);
   }
