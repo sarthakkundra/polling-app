@@ -1,4 +1,4 @@
-import { SET_POLLS, SET_CURRENT_POLL, SET_CURRENT_USER } from "../types";
+import { SET_POLLS, SET_CURRENT_POLL } from "../types";
 
 export const polls = (state = [], action) => {
   switch (action.type) {

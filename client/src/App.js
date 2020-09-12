@@ -10,7 +10,6 @@ import { setToken } from "./services/api";
 import Navbar from "./components/layout/Navbar";
 import RouteViews from "./components/RouteViews";
 
-
 import "./App.css";
 
 if (localStorage.jwtToken) {
