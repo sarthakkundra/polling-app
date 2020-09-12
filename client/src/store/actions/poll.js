@@ -33,8 +33,8 @@ export const getPolls = () => {
 export const getUserPolls = () => {
   return async (dispatch) => {
     try {
-      const polls = await api("get", "/poll/userPolls");
-      dispatch(setPolls(polls));
+      const polls = await axios.get("/poll/userPolls");
+      dispatch(setPolls(polls.data));
       dispatch(removeError());
     } catch (e) {
       const error = e.response.data;
