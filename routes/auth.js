@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 const router = new express.Router();
 
-const secret = "CBPollingApp";
+const secret = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
   try {
