@@ -56,6 +56,12 @@ PORT=
 JWT_SECRET=""
 ```
 
+- **To generate the `GITHUB_TOKEN` follow these steps** [link](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)<br>
+
+* **`PORT` can be any valid port except 3000**
+
+- **`JWT_SECRET` can be any string of your choice**<br>
+
 ### Step 6 :
 
 #### Run `npm run dev` in the root directory for starting the application.
