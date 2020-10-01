@@ -77,5 +77,5 @@ JWT_SECRET=""
 ### Mentors
 
 <table>
-<td align="center"><a href="https://github.com/sarthakkundra"><img src="https://avatars2.githubusercontent.com/u/52133994?s=400&u=c025480f6def3f6600d358ae8d9eea23a0b56bcb&v=4" width="80px;" alt=""/><br /><sub><b>Mukesh</b></sub></a><br /><a href="https://github.com/sarthakkundra/polling-app/commits?author=sarthakkundra" title="Code">💻</a></td>
+<td align="center"><a href="https://github.com/sarthakkundra"><img src="https://avatars2.githubusercontent.com/u/52133994?s=400&u=c025480f6def3f6600d358ae8d9eea23a0b56bcb&v=4" width="80px;" alt=""/><br /><sub><b>Sarthak Kundra</b></sub></a><br /><a href="https://github.com/sarthakkundra/polling-app/commits?author=sarthakkundra" title="Code">💻</a></td>
 </table>
